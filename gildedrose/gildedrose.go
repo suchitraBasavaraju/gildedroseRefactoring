@@ -14,6 +14,7 @@ func UpdateQuality(items []*Item) {
 const AGEDBRIE = "Aged Brie"
 const BACKSTAGEPASSES = "Backstage passes to a TAFKAL80ETC concert"
 const SULFURAS = "Sulfuras, Hand of Ragnaros"
+const CONJURED = "Conjured Mana Cake"
 
 func updateItemQuality(item *Item) {
 	switch item.Name {
@@ -25,8 +26,19 @@ func updateItemQuality(item *Item) {
 		break
 	case SULFURAS:
 		break
+	case CONJURED:
+		updateConjuredQuality(item)
 	default:
 		updateRegularProductQuality(item)
+	}
+}
+
+func updateConjuredQuality(item *Item) {
+	qualityAdjustment(item, -2)
+	item.SellIn = item.SellIn - 1
+
+	if item.SellIn < 0 {
+		qualityAdjustment(item, -2)
 	}
 }
 
