@@ -35,15 +35,11 @@ func updateItemQuality(item *Item) {
 }
 
 func updateRegularProductQuality(item *Item) {
-	if item.Quality > 0 {
-		qualityAdjustment(item, -1)
-	}
+	qualityAdjustment(item, -1)
 	item.SellIn = item.SellIn - 1
 
 	if item.SellIn < 0 {
-		if item.Quality > 0 {
-			qualityAdjustment(item, -1)
-		}
+		qualityAdjustment(item, -1)
 	}
 }
 
@@ -52,18 +48,12 @@ func updateSulfurasQuality(item *Item) {
 }
 
 func updatebackStageQuality(item *Item) {
-	if item.Quality < 50 {
+	qualityAdjustment(item, 1)
+	if item.SellIn < 11 {
 		qualityAdjustment(item, 1)
-		if item.SellIn < 11 {
-			if item.Quality < 50 {
-				qualityAdjustment(item, 1)
-			}
-		}
-		if item.SellIn < 6 {
-			if item.Quality < 50 {
-				qualityAdjustment(item, 1)
-			}
-		}
+	}
+	if item.SellIn < 6 {
+		qualityAdjustment(item, 1)
 	}
 	item.SellIn = item.SellIn - 1
 	if item.SellIn < 0 {
@@ -72,19 +62,16 @@ func updatebackStageQuality(item *Item) {
 }
 
 func updateAgedBrieQuality(item *Item) {
-	if item.Quality < 50 {
-		qualityAdjustment(item, 1)
-	}
-
+	qualityAdjustment(item, 1)
 	item.SellIn = item.SellIn - 1
-
 	if item.SellIn < 0 {
-		if item.Quality < 50 {
-			qualityAdjustment(item, 1)
-		}
+		qualityAdjustment(item, 1)
 	}
 }
 
 func qualityAdjustment(item *Item, adjustment int) {
-	item.Quality = item.Quality + adjustment
+	newQuality := item.Quality + adjustment
+	if item.Quality > 0 && item.Quality < 50 {
+		item.Quality = newQuality
+	}
 }
