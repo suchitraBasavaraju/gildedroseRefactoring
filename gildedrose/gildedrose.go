@@ -17,13 +17,7 @@ func updateItemQuality(item *Item) {
 	const BACKSTAGEPASSES = "Backstage passes to a TAFKAL80ETC concert"
 	const SULFURAS = "Sulfuras, Hand of Ragnaros"
 
-	if item.Name != AGEDBRIE && item.Name != BACKSTAGEPASSES {
-		if item.Quality > 0 {
-			if item.Name != SULFURAS {
-				item.Quality = item.Quality - 1
-			}
-		}
-	} else {
+	if item.Name == AGEDBRIE || item.Name == BACKSTAGEPASSES {
 		if item.Quality < 50 {
 			item.Quality = item.Quality + 1
 			if item.Name == BACKSTAGEPASSES {
@@ -39,6 +33,10 @@ func updateItemQuality(item *Item) {
 				}
 			}
 		}
+	} else if item.Quality > 0 {
+		if item.Name != SULFURAS {
+			item.Quality = item.Quality - 1
+		}
 	}
 
 	if item.Name != SULFURAS {
@@ -46,19 +44,15 @@ func updateItemQuality(item *Item) {
 	}
 
 	if item.SellIn < 0 {
-		if item.Name != AGEDBRIE {
-			if item.Name != BACKSTAGEPASSES {
-				if item.Quality > 0 {
-					if item.Name != SULFURAS {
-						item.Quality = item.Quality - 1
-					}
-				}
-			} else {
-				item.Quality = item.Quality - item.Quality
-			}
-		} else {
+		if item.Name == AGEDBRIE {
 			if item.Quality < 50 {
 				item.Quality = item.Quality + 1
+			}
+		} else if item.Name == BACKSTAGEPASSES {
+			item.Quality = item.Quality - item.Quality
+		} else if item.Quality > 0 {
+			if item.Name != SULFURAS {
+				item.Quality = item.Quality - 1
 			}
 		}
 	}
