@@ -147,3 +147,24 @@ func Test_BackStagePassProducts(t *testing.T) {
 		assert.Equal(t, -1, items[0].SellIn)
 	})
 }
+
+// New Requirement
+func SkipConjuredProducts(t *testing.T) {
+	t.Run("conjured products quality is reduced twice ", func(t *testing.T) {
+		items := []*gildedrose.Item{{"Conjured Mana Cake", 3, 6}}
+		gildedrose.UpdateQuality(items)
+
+		assert.Equal(t, "Conjured Mana Cake", items[0].Name)
+		assert.Equal(t, 2, items[0].SellIn)
+		assert.Equal(t, 4, items[0].Quality)
+	})
+
+	t.Run("conjured products quality is never negative ", func(t *testing.T) {
+		items := []*gildedrose.Item{{"Conjured Mana Cake", 0, 6}}
+		gildedrose.UpdateQuality(items)
+
+		assert.Equal(t, "Conjured Mana Cake", items[0].Name)
+		assert.Equal(t, -1, items[0].SellIn)
+		assert.Equal(t, 0, items[0].Quality)
+	})
+}
