@@ -25,7 +25,6 @@ func updateItemQuality(item *Item) {
 		updatebackStageQuality(item)
 		break
 	case SULFURAS:
-		updateSulfurasQuality(item)
 		break
 	default:
 		updateRegularProductQuality(item)
@@ -41,10 +40,6 @@ func updateRegularProductQuality(item *Item) {
 	if item.SellIn < 0 {
 		qualityAdjustment(item, -1)
 	}
-}
-
-func updateSulfurasQuality(item *Item) {
-	//do nothing
 }
 
 func updatebackStageQuality(item *Item) {
