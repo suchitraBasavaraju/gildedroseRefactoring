@@ -19,23 +19,23 @@ func updateItemQuality(item *Item) {
 
 	if item.Name == AGEDBRIE || item.Name == BACKSTAGEPASSES {
 		if item.Quality < 50 {
-			item.Quality = item.Quality + 1
+			qualityAdjustment(item, 1)
 			if item.Name == BACKSTAGEPASSES {
 				if item.SellIn < 11 {
 					if item.Quality < 50 {
-						item.Quality = item.Quality + 1
+						qualityAdjustment(item, 1)
 					}
 				}
 				if item.SellIn < 6 {
 					if item.Quality < 50 {
-						item.Quality = item.Quality + 1
+						qualityAdjustment(item, 1)
 					}
 				}
 			}
 		}
 	} else if item.Quality > 0 {
 		if item.Name != SULFURAS {
-			item.Quality = item.Quality - 1
+			qualityAdjustment(item, -1)
 		}
 	}
 
@@ -46,14 +46,18 @@ func updateItemQuality(item *Item) {
 	if item.SellIn < 0 {
 		if item.Name == AGEDBRIE {
 			if item.Quality < 50 {
-				item.Quality = item.Quality + 1
+				qualityAdjustment(item, 1)
 			}
 		} else if item.Name == BACKSTAGEPASSES {
 			item.Quality = item.Quality - item.Quality
 		} else if item.Quality > 0 {
 			if item.Name != SULFURAS {
-				item.Quality = item.Quality - 1
+				qualityAdjustment(item, -1)
 			}
 		}
 	}
+}
+
+func qualityAdjustment(item *Item, adjustment int) {
+	item.Quality = item.Quality + adjustment
 }
