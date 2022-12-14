@@ -9,7 +9,6 @@ func UpdateQuality(items []*Item) {
 	for _, item := range items {
 		updateItemQuality(item)
 	}
-
 }
 
 const AGEDBRIE = "Aged Brie"
@@ -28,9 +27,7 @@ func updateItemQuality(item *Item) {
 		break
 	default:
 		updateRegularProductQuality(item)
-
 	}
-
 }
 
 func updateRegularProductQuality(item *Item) {
