@@ -19,21 +19,21 @@ const CONJURED = "Conjured Mana Cake"
 func updateItemQuality(item *Item) {
 	switch item.Name {
 	case AGEDBRIE:
-		updateAgedBrieQuality(item)
+		item.updateAgedBrieQuality()
 		break
 	case BACKSTAGEPASSES:
-		updatebackStageQuality(item)
+		item.updatebackStageQuality()
 		break
 	case SULFURAS:
 		break
 	case CONJURED:
-		updateConjuredQuality(item)
+		item.updateConjuredQuality()
 	default:
-		updateRegularProductQuality(item)
+		item.updateRegularProductQuality()
 	}
 }
 
-func updateConjuredQuality(item *Item) {
+func (item *Item) updateConjuredQuality() {
 	qualityAdjustment(item, -2)
 	item.SellIn = item.SellIn - 1
 
@@ -42,7 +42,7 @@ func updateConjuredQuality(item *Item) {
 	}
 }
 
-func updateRegularProductQuality(item *Item) {
+func (item *Item) updateRegularProductQuality() {
 	qualityAdjustment(item, -1)
 	item.SellIn = item.SellIn - 1
 
@@ -51,7 +51,7 @@ func updateRegularProductQuality(item *Item) {
 	}
 }
 
-func updatebackStageQuality(item *Item) {
+func (item *Item) updatebackStageQuality() {
 	qualityAdjustment(item, 1)
 	if item.SellIn < 11 {
 		qualityAdjustment(item, 1)
@@ -65,7 +65,7 @@ func updatebackStageQuality(item *Item) {
 	}
 }
 
-func updateAgedBrieQuality(item *Item) {
+func (item *Item) updateAgedBrieQuality() {
 	qualityAdjustment(item, 1)
 	item.SellIn = item.SellIn - 1
 	if item.SellIn < 0 {
